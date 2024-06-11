@@ -73,6 +73,7 @@ class BootstrapFinetune(Teleprompter):
         accumsteps=1,
         lr=5e-5,
         epochs=1,
+        fp16=False,
         bf16=False,
         int8=False,
         peft=False,
@@ -139,7 +140,7 @@ class BootstrapFinetune(Teleprompter):
                 random.Random(time.time()).choices(string.ascii_uppercase + string.digits, k=13),
             ),  # https://stackoverflow.com/a/2257449/1493011
             "peft": peft,
-            "fp16": False,
+            "fp16": fp16,
             "bf16": bf16,
             "int8": int8,
             "fid": False,
