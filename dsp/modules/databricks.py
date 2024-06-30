@@ -63,9 +63,8 @@ class Databricks(GPT3):
             kwargs["messages"] = [{"role": "system", "content": "You are a helpful assistant."}, {"role": "user", "content": prompt}]
             kwargs = {"stringify_request": json.dumps(kwargs)}
             print("-------------")
-            print(kwargs)
             response = custom_client_chat_request(**kwargs)
-            print(response)
+            print(f"{response=}")
             print("-------------")
             response = response.json()
             response = json.loads(response)
