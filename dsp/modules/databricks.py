@@ -62,7 +62,12 @@ class Databricks(GPT3):
         if self.model_type == "chat":
             kwargs["messages"] = [{"role": "system", "content": "You are a helpful assistant."}, {"role": "user", "content": prompt}]
             kwargs = {"stringify_request": json.dumps(kwargs)}
-            response = custom_client_chat_request(**kwargs).json()
+            print("-------------")
+            print(kwargs)
+            response = custom_client_chat_request(**kwargs)
+            print(response)
+            print("-------------")
+            response = response.json()
             response = json.loads(response)
         else:
             kwargs["prompt"] = prompt
