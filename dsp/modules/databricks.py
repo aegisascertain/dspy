@@ -64,7 +64,7 @@ class Databricks(GPT3):
             kwargs = {"stringify_request": json.dumps(kwargs)}
             print("-------------")
             response = custom_client_chat_request(**kwargs)
-            print(f"{response=}")
+            print(f"{response=}", flush=True)
             print("-------------")
             response = response.json()
             response = json.loads(response)
@@ -115,35 +115,25 @@ def custom_client_embeddings_request(**kwargs):
 def custom_client_completions_request(**kwargs):
     return cached_custom_client_completions_request_v2_wrapped(**kwargs)
 
-
-@CacheMemory.cache
 def cached_custom_client_chat_request_v2(**kwargs):
     client = create_custom_client()
     return client.chat.completions.create(**kwargs)
 
-@functools.lru_cache(maxsize=None if cache_turn_on else 0)
-@NotebookCacheMemory.cache
 def cached_custom_client_chat_request_v2_wrapped(**kwargs):
     if "stringify_request" in kwargs:
         kwargs = json.loads(kwargs["stringify_request"])
     return cached_custom_client_chat_request_v2(**kwargs)
 
-@CacheMemory.cache
 def cached_custom_client_completions_request_v2(**kwargs):
     client = create_custom_client()
     return client.completions.create(**kwargs)
 
-@functools.lru_cache(maxsize=None if cache_turn_on else 0)
-@NotebookCacheMemory.cache
 def cached_custom_client_completions_request_v2_wrapped(**kwargs):
     return cached_custom_client_completions_request_v2(**kwargs)
 
-@CacheMemory.cache
 def cached_custom_client_embeddings_request_v2(**kwargs):
     client = create_custom_client()
     return client.embeddings.create(**kwargs)
 
-@functools.lru_cache(maxsize=None if cache_turn_on else 0)
-@NotebookCacheMemory.cache
 def cached_custom_client_embeddings_request_v2_wrapped(**kwargs):
     return cached_custom_client_embeddings_request_v2(**kwargs)
